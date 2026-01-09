@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Chaos Engineering</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    :root {
+      --bg: #0b0e14;
+      --primary: #ff4d6d;
+      --secondary: #4ddcff;
+      --text: #eaeaea;
+      --muted: #9aa4b2;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at top, #111827, var(--bg));
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .noise {
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    header {
+      text-align: center;
+      padding: 6rem 1rem 3rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      letter-spacing: 2px;
+      position: relative;
+    }
+
+    h1 span {
+      color: var(--primary);
+      animation: glitch 2s infinite;
+    }
+
+    @keyframes glitch {
+      0% { text-shadow: 2px 0 var(--secondary); }
+      20% { text-shadow: -2px 0 var(--primary); }
+      40% { text-shadow: 2px 2px var(--secondary); }
+      60% { text-shadow: -2px -2px var(--primary); }
+      80% { text-shadow: 1px -1px var(--secondary); }
+      100% { text-shadow: none; }
+    }
+
+    .subtitle {
+      margin-top: 1rem;
+      color: var(--muted);
+      font-size: 1.1rem;
+    }
+
+    main {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+
+    .card {
+      background: linear-gradient(145deg, #111827, #0b1220);
+      border: 1px solid #1f2937;
+      border-radius: 14px;
+      padding: 1.5rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255, 77, 109, 0.15),
+        transparent
+      );
+      transform: translateX(-100%);
+      transition: transform 0.6s;
+    }
+
+    .card:hover::after {
+      transform: translateX(100%);
+    }
+
+    .card:hover {
+      transform: translateY(-6px) rotate(-0.4deg);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+    }
+
+    .card h3 {
+      color: var(--secondary);
+      margin-bottom: 0.5rem;
+    }
+
+    .card p {
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .cta {
+      margin-top: 4rem;
+      text-align: center;
+    }
+
+    .cta button {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border: none;
+      padding: 0.9rem 2rem;
+      border-radius: 999px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      color: #000;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .cta button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 30px rgba(77, 220, 255, 0.35);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .floating {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: var(--primary);
+      border-radius: 50%;
+      opacity: 0.6;
+      animation: float 8s linear infinite;
+    }
+
+    @keyframes float {
+      from {
+        transform: translateY(0) translateX(0);
+      }
+      to {
+        transform: translateY(-120vh) translateX(60px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="noise"></div>
+
+  <header>
+    <h1>Welcome to <span>Chaos Engineering</span></h1>
+    <p class="subtitle">
+      Where systems break on purpose — so they don’t break in production.
+    </p>
+  </header>
+
+  <main>
+    <section>
+      <p style="text-align:center; max-width: 720px; margin: 0 auto; color: var(--muted); line-height: 1.7;">
+        This project explores <strong>Chaos Engineering</strong>: the practice of
+        intentionally injecting failures into systems to understand their
+        weaknesses, improve resilience, and build confidence in production-ready
+        infrastructure.
+      </p>
+    </section>
+
+    <div class="grid">
+      <div class="card">
+        <h3>💥 Controlled Failure</h3>
+        <p>
+          We simulate outages, latency, crashes, and misconfigurations in a
+          controlled environment to observe real system behavior.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>🧠 Learn the Unknown</h3>
+        <p>
+          Chaos reveals hidden dependencies, fragile assumptions, and
+          unexpected failure modes you won’t find in diagrams.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>🛡️ Build Resilience</h3>
+        <p>
+          The goal isn’t destruction — it’s confidence. Stronger monitoring,
+          better recovery, and systems that survive the unexpected.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>☁️ Cloud & Distributed</h3>
+        <p>
+          Designed for modern cloud-native systems: containers, Kubernetes,
+          microservices, load balancers, and real-world traffic.
+        </p>
+      </div>
+    </div>
+
+    <div class="cta">
+      <button onclick="triggerChaos()">Trigger Some Chaos ⚡</button>
+    </div>
+  </main>
+
+  <footer>
+    Chaos Engineering Project · Expect the unexpected
+  </footer>
+
+  <script>
+    // Floating chaos particles
+    function spawnParticle() {
+      const particle = document.createElement("div");
+      particle.className = "floating";
+      particle.style.left = Math.random() * 100 + "vw";
+      particle.style.animationDuration = 6 + Math.random() * 6 + "s";
+      particle.style.background =
+        Math.random() > 0.5 ? "var(--primary)" : "var(--secondary)";
+      document.body.appendChild(particle);
+
+      setTimeout(() => particle.remove(), 12000);
+    }
+
+    setInterval(spawnParticle, 500);
+
+    // Chaos button effect
+    function triggerChaos() {
+      document.body.style.filter = "hue-rotate(90deg)";
+      setTimeout(() => {
+        document.body.style.filter = "none";
+      }, 600);
+    }
+  </script>
+</body>
+</html>
