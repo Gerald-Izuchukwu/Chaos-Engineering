@@ -1,3 +1,5 @@
 backend/node_modules/
 structure.txt
 .env
+process
+nginx.conf.main

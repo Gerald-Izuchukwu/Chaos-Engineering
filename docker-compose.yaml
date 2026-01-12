@@ -6,7 +6,7 @@ services:
     ports: 
     - 8080:8080
     volumes:
-    - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro #ro is readonly, ie nginx cant modify it
+    - ./nginx/nginx.conf.main:/etc/nginx/nginx.conf:ro #ro is readonly, ie nginx cant modify it
     depends_on:
     - app_blue
     - app_green
