@@ -7,11 +7,11 @@ source ../.env
 if [ "$ACTIVE_POOL" == 'blue' ]; then
     export GREEN_ROLE="backup"
     export BLUE_ROLE=""
-elif [ "$ACTIVE_POOL" == 'green' ] 
+elif [ "$ACTIVE_POOL" == 'green' ]; then
     export GREEN_ROLE=""
     export BLUE_ROLE="backup"
 else
-    echo "ACTIVE_POOL can either "BLUE or "GREEN"
+    echo ACTIVE_POOL can either "BLUE" or "GREEN"
 fi;
 
 

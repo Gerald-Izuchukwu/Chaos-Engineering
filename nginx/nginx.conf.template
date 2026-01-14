@@ -3,6 +3,18 @@ events{
 }
 
 http{
+    log_format detailed_upstream 
+        'time=$time_iso8601 '
+        'pool=$upstream_http_x_app_pool '
+        'release=$upstream_http_x_release_id '
+        'method=$request_method '
+        'uri=$request_uri '
+        'status=$status '
+        'upstream_status=$upstream_status '
+        'upstream_addr=$upstream_addr '
+        'request_time=$request_time '
+        'upstream_response_time=$upstream_response_time';
+
     upstream backend_servers{
         server app_blue:8081 max_fails=3 fail_timeout=10s ${BLUE_ROLE};
         server app_green:8082 max_fails=3 fail_timeout=10s ${GREEN_ROLE};
@@ -10,6 +22,13 @@ http{
 
     server{
         listen ${NGINX_PORT};
+
+        access_log /var/log/nginx/access.log; #this is the default log file that docker uses, it is std_out and it is what allows us to see logs when we use docker compose.
+        #our watcher script cant read this file because it is std-out, so we make a copy but call it a different name below
+        
+        access_log /var/log/nginx/monitoring-access.log detailed_upstream;
+
+        error_log /var/log/nginx/monitoring-error.log warn;
 
         location / {
             proxy_pass http://backend_servers;

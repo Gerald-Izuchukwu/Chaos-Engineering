@@ -7,6 +7,7 @@ services:
     - 8080:8080
     volumes:
     - ./nginx/nginx.conf.main:/etc/nginx/nginx.conf:ro #ro is readonly, ie nginx cant modify it
+    - nginx_logs:/var/log/nginx #mounting the shared volume shared volume for logs
     depends_on:
     - app_blue
     - app_green
@@ -30,3 +31,6 @@ services:
       RELEASE_ID: ${RELEASE_ID_GREEN}
     ports:
     - 8082:8082
+
+volumes:
+  nginx_logs: #shared volume file, where nginx and python watcher can read
