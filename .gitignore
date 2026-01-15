@@ -3,3 +3,4 @@ structure.txt
 .env
 process
 nginx.conf.main
+docker-compose.override.yml
