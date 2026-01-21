@@ -173,7 +173,7 @@ def tail_logs(log_file):
                         send_slack_alert(title, details, severity="warning")
                     elif pool == "blue":
                         details = f"✅ Switched back to primary pool: {pool} at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
-                        title = "Failback Alert"
+                        title = "Recover Alert"
                         send_slack_alert(title, details, severity="info")
 
             # Check for high error rate
