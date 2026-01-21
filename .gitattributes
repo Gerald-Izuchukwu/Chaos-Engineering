@@ -1,0 +1,10 @@
+*.html linguist-detectable=false
+nginx/nginx.conf.template linguist-detectable=true
+*.py linguist-language=Python
+*.yaml linguist-language=YAML
+docker-compose.yaml linguist-language=YAML
+Dockerfile linguist-language=Dockerfile
+*.dockerfile linguist-language=Dockerfile
+nginx.conf linguist-language=Nginx
+*.conf linguist-language=Nginx
+*.html linguist-documentation
