@@ -15,7 +15,7 @@ http{
         'request_time=$request_time '
         'upstream_response_time=$upstream_response_time';
 
-    backend_servers {
+    upstream backend_servers {
         server app_blue:8081 max_fails=3 fail_timeout=10s ${BLUE_ROLE};
         server app_green:8082 max_fails=3 fail_timeout=10s ${GREEN_ROLE};
     }
